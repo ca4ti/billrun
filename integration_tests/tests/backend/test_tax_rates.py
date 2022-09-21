@@ -1,3 +1,4 @@
+import allure
 import pytest
 from pytest_testrail.plugin import pytestrail
 
@@ -6,6 +7,8 @@ from steps.backend_steps.tax_rates_steps import TaxRates, TaxRatesAssertionSteps
 
 
 @pytestrail.case('C2702')
+@allure.title('Create tax rate by API')
+@allure.description('TAX-RATE-API-1')
 @pytest.mark.smoke
 def test_create_tax_rate():
     tax_rate = TaxRates()
@@ -19,6 +22,8 @@ def test_create_tax_rate():
 
 
 @pytestrail.case('C2703')
+@allure.title('Update tax rate by API')
+@allure.description('TAX-RATE-API-2')
 @pytest.mark.smoke
 def test_update_tax_rate():
     tax_rate = TaxRates()
@@ -37,6 +42,8 @@ def test_update_tax_rate():
 
 
 @pytestrail.case('C2704', 'C2705', 'C2706')
+@allure.title('Close tax rate by API')
+@allure.description('TAX-RATE-API-3')
 @pytest.mark.smoke
 @pytest.mark.parametrize('to', [
     True,  # set random future date
@@ -61,6 +68,8 @@ def test_close_tax_rate(to):
 
 
 @pytestrail.case('C2707')
+@allure.title('Close and new tax rate by API')
+@allure.description('TAX-RATE-API-4')
 @pytest.mark.smoke
 def test_close_and_new_tax_rate():
     tax_rate = TaxRates()
@@ -82,6 +91,8 @@ def test_close_and_new_tax_rate():
 
 
 @pytestrail.case('C2708')
+@allure.title('Delete tax rate by API')
+@allure.description('TAX-RATE-API-5')
 @pytest.mark.smoke
 def test_delete_tax_rate():
     tax_rate = TaxRates()

@@ -1,3 +1,4 @@
+import allure
 import pytest
 from pytest_testrail.plugin import pytestrail
 
@@ -7,6 +8,8 @@ from steps.backend_steps.services_steps import Services, ServicesAssertionSteps
 
 
 @pytestrail.case('C2694')
+@allure.title('Create service by API')
+@allure.description('SERVICE-API-1')
 @pytest.mark.smoke
 def test_create_services():
     service = Services()
@@ -20,6 +23,8 @@ def test_create_services():
 
 
 @pytestrail.case('C2695')
+@allure.title('Update service by API')
+@allure.description('SERVICE-API-2')
 @pytest.mark.smoke
 def test_update_services():
     service = Services()
@@ -41,6 +46,8 @@ def test_update_services():
 
 
 @pytestrail.case('C2696', 'C2697', 'C2698')
+@allure.title('Close service by API')
+@allure.description('SERVICE-API-3')
 @pytest.mark.smoke
 @pytest.mark.parametrize('to', [
     True,  # set random future date
@@ -66,6 +73,8 @@ def test_close_service(to):
 
 
 @pytestrail.case('C2699')
+@allure.title('Close and new service by API')
+@allure.description('SERVICE-API-4')
 @pytest.mark.smoke
 def test_close_and_new_service():
     service = Services()
@@ -88,6 +97,8 @@ def test_close_and_new_service():
 
 
 @pytestrail.case('C2700')
+@allure.title('Delete service by API')
+@allure.description('SERVICE-API-5')
 @pytest.mark.smoke
 def test_delete_service():
     service = Services()

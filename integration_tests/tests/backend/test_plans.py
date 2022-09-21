@@ -1,3 +1,4 @@
+import allure
 import pytest
 from pytest_testrail.plugin import pytestrail
 
@@ -6,6 +7,8 @@ from steps.backend_steps.plans_steps import Plans, PlansAssertionSteps
 
 
 @pytestrail.case('C2679')
+@allure.title('Create plan by API')
+@allure.description('PLAN-API-1')
 @pytest.mark.smoke
 @pytest.mark.parametrize('connection_type', ['postpaid'])
 def test_create_plan(connection_type):
@@ -20,6 +23,8 @@ def test_create_plan(connection_type):
 
 
 @pytestrail.case('C2680')
+@allure.title('Update plan by API')
+@allure.description('PLAN-API-2')
 @pytest.mark.smoke
 @pytest.mark.parametrize('connection_type', ['postpaid'])
 def test_update_plan(connection_type):
@@ -38,6 +43,8 @@ def test_update_plan(connection_type):
 
 
 @pytestrail.case('C2681', 'C2689', 'C2690')
+@allure.title('Close plan by API')
+@allure.description('PLAN-API-3')
 @pytest.mark.smoke
 @pytest.mark.parametrize('connection_type', ['postpaid'])
 @pytest.mark.parametrize('to', [
@@ -63,6 +70,8 @@ def test_close_plan(connection_type, to):
 
 
 @pytestrail.case('C2682')
+@allure.title('Close and new plan by API')
+@allure.description('PLAN-API-4')
 @pytest.mark.smoke
 @pytest.mark.parametrize('connection_type', ['postpaid'])
 def test_close_and_new_plan(connection_type):
@@ -85,6 +94,8 @@ def test_close_and_new_plan(connection_type):
 
 
 @pytestrail.case('C2683')
+@allure.title('Delete plan by API')
+@allure.description('PLAN-API-5')
 @pytest.mark.smoke
 @pytest.mark.parametrize('connection_type', ['postpaid'])
 def test_delete_plan(connection_type):

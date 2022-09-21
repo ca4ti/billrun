@@ -1,3 +1,4 @@
+import allure
 import pytest
 from pytest_testrail.plugin import pytestrail
 
@@ -6,6 +7,8 @@ from steps.backend_steps.subscribers_steps import Subscribers, SubscribersAssert
 
 
 @pytestrail.case('C2674')
+@allure.title('Create subscriber by API')
+@allure.description('SUBSCRIBER-API-1')
 @pytest.mark.smoke
 def test_create_subscriber():
     subscriber = Subscribers()
@@ -19,6 +22,8 @@ def test_create_subscriber():
 
 
 @pytestrail.case('C2675')
+@allure.title('Update subscriber by API')
+@allure.description('SUBSCRIBER-API-2')
 @pytest.mark.smoke
 def test_update_subscriber():
     subscriber = Subscribers()
@@ -36,6 +41,8 @@ def test_update_subscriber():
 
 
 @pytestrail.case('C2676', 'C2691', 'C2692')
+@allure.title('Close subscriber by API')
+@allure.description('SUBSCRIBER-API-3')
 @pytest.mark.parametrize('to', [
     True,  # set random future date
     False,  # w/o to param
@@ -60,6 +67,8 @@ def test_close_subscriber(to):
 
 
 @pytestrail.case('C2677')
+@allure.title('Close and new subscriber by API')
+@allure.description('SUBSCRIBER-API-4')
 @pytest.mark.smoke
 def test_close_and_new_subscriber():
     subscriber = Subscribers()
@@ -81,6 +90,8 @@ def test_close_and_new_subscriber():
 
 
 @pytestrail.case('C2678')
+@allure.title('Delete subscriber by API')
+@allure.description('SUBSCRIBER-API-5')
 @pytest.mark.smoke
 def test_delete_subscriber():
     subscriber = Subscribers()

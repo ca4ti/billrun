@@ -1,3 +1,4 @@
+import allure
 import pytest
 from pytest_testrail.plugin import pytestrail
 
@@ -6,6 +7,8 @@ from steps.backend_steps.discounts_steps import Discounts, DiscountAssertionStep
 
 
 @pytestrail.case('C2712', 'C2713')
+@allure.title('Create discount by API')
+@allure.description('DISCOUNT-API-1')
 @pytest.mark.smoke
 @pytest.mark.parametrize('discount_type', [
     "monetary",
@@ -23,6 +26,8 @@ def test_create_discount(discount_type):
 
 
 @pytestrail.case('C2714')
+@allure.title('Update discount by API')
+@allure.description('DISCOUNT-API-2')
 @pytest.mark.smoke
 def test_update_discount():
     discount = Discounts()
@@ -40,6 +45,8 @@ def test_update_discount():
 
 
 @pytestrail.case('C2715', 'C2716', 'C2717')
+@allure.title('Close discount by API')
+@allure.description('DISCOUNT-API-3')
 @pytest.mark.smoke
 @pytest.mark.parametrize('to', [
     True,  # set random future date
@@ -64,6 +71,8 @@ def test_close_discount(to):
 
 
 @pytestrail.case('C2718')
+@allure.title('Close and new discount by API')
+@allure.description('DISCOUNT-API-4')
 @pytest.mark.smoke
 def test_close_and_new_discount():
     discount = Discounts()
@@ -86,6 +95,8 @@ def test_close_and_new_discount():
 
 
 @pytestrail.case('C2719')
+@allure.title('Delete discount by API')
+@allure.description('DISCOUNT-API-5')
 @pytest.mark.smoke
 def test_delete_product():
     discount = Discounts()

@@ -1,3 +1,4 @@
+import allure
 import pytest
 from pytest_testrail.plugin import pytestrail
 
@@ -6,6 +7,8 @@ from steps.backend_steps.customers_steps import Customers, CustomerAssertionStep
 
 
 @pytestrail.case('C2672', 'C2693')
+@allure.title('Create customer by API')
+@allure.description('CUSTOMERS-API-1')
 @pytest.mark.parametrize('optional_params', [
     {'invoice_detailed': False, 'invoice_shipping_method': 'email'},
     skip_test(case={'invoice_detailed': True, 'invoice_shipping_method': None},
@@ -23,6 +26,8 @@ def test_create_customer(optional_params):
     assertion_steps.validate_get_response_is_correct()
 
 
+@allure.title('Delete customer by API')
+@allure.description('CUSTOMERS-API-2')
 @pytestrail.case('C2673')
 @pytest.mark.smoke
 def test_delete_customer():

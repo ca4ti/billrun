@@ -1,3 +1,4 @@
+import allure
 import pytest
 from pytest_testrail.plugin import pytestrail
 
@@ -7,6 +8,8 @@ from steps.backend_steps.products_steps import Products, ProductAssertionSteps
 
 
 @pytestrail.case('C2684')
+@allure.title('Create product by API')
+@allure.description('PRODUCT-API-1')
 @pytest.mark.smoke
 def test_create_product():
     product = Products()
@@ -20,6 +23,8 @@ def test_create_product():
 
 
 @pytestrail.case('C2685')
+@allure.title('Update product by API')
+@allure.description('PRODUCT-API-2')
 @pytest.mark.smoke
 def test_update_product():
     product = Products()
@@ -40,6 +45,8 @@ def test_update_product():
 
 
 @pytestrail.case('C2686', 'C2709', 'C2710')
+@allure.title('Close product by API')
+@allure.description('PRODUCT-API-3')
 @pytest.mark.smoke
 @pytest.mark.parametrize('to', [
     True,  # set random future date
@@ -64,6 +71,8 @@ def test_close_product(to):
 
 
 @pytestrail.case('C2687')
+@allure.title('Close and new product by API')
+@allure.description('PRODUCT-API-4')
 @pytest.mark.smoke
 def test_close_and_new_product():
     product = Products()
@@ -86,6 +95,8 @@ def test_close_and_new_product():
 
 
 @pytestrail.case('C2688')
+@allure.title('Delete product by API')
+@allure.description('PRODUCT-API-5')
 @pytest.mark.smoke
 def test_delete_product():
     product = Products()
