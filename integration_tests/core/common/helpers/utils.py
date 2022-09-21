@@ -55,7 +55,9 @@ def get_random_past_or_future_date_str(
 
 
 def get_random_date_between_dates(
-        start_date: str = None, end_date: str = None, pattern: str = DATE_PATTERN
+        start_date: str = None,
+        end_date: str = None,
+        pattern: str = DATE_PATTERN
 ) -> date:
     start_date = (
         datetime.strptime(start_date, pattern)

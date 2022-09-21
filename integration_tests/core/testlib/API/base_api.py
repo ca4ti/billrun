@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Optional
 
 from requests import Response
 
@@ -84,7 +84,7 @@ class BaseAPI(APIClient):
 
         return self.close_and_new_response
 
-    def _modify_payload(self, payload: Union[dict, None], id_: str) -> dict:
+    def _modify_payload(self, payload: Optional[dict], id_: Optional[str]) -> dict:
         if payload:
             payload = self._add_update_key(payload)
         return self._add_id_to_data_payload(id_, payload)

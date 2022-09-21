@@ -1,5 +1,5 @@
 import pytest
-
+from selene.support.conditions import be
 from selene.support.shared import browser
 from selenium.common import WebDriverException
 
@@ -7,6 +7,8 @@ from config.credentials import USERNAME, PASSWORD
 from config.driver import Driver
 from core.common.logger import LOGGER
 from core.connectors.api_client import APIClient
+from core.testlib.UI.billrun_cloud.home_page import HomePage
+from core.testlib.UI.billrun_cloud.login_page import LoginPage
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -28,3 +30,16 @@ def driver():
         LOGGER.info(f'Driver quit')
     except WebDriverException:
         LOGGER.info(f'Driver is already closed by exception interact hook')
+
+
+@pytest.fixture(scope='function')
+def login():
+    """login to BillRun app"""
+
+    def inner(username, password):
+        LoginPage.login_field.send_keys(username)
+        LoginPage.password_field.send_keys(password)
+        LoginPage.login_button.click()
+        HomePage.product_button.should(be.clickable)
+
+    return inner
