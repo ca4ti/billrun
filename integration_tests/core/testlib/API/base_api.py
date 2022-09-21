@@ -1,5 +1,6 @@
 from typing import Optional
 
+import allure
 from requests import Response
 
 from core.common.helpers.utils import dumps_values
@@ -26,6 +27,7 @@ class BaseAPI(APIClient):
         self.close_response = None
         self.get_response = None
 
+    @allure.step('Create by API')
     def create(self, payload: dict = None) -> Response:
         payload = payload or self.create_payload
         if payload:
@@ -34,6 +36,7 @@ class BaseAPI(APIClient):
 
         return self.create_response
 
+    @allure.step('Get by ID')
     def get_by_id(self, id_: str = None) -> Response:
         id_ = id_ or get_id_from_response(self.create_response)
         self.get_response = self.get(
@@ -53,6 +56,7 @@ class BaseAPI(APIClient):
 
         return self.get_response
 
+    @allure.step('Update by API')
     def update(self, id_: str = None, payload: dict = None) -> Response:
         payload = payload or self.update_payload
         payload = self._modify_payload(payload, id_)
@@ -61,6 +65,7 @@ class BaseAPI(APIClient):
 
         return self.update_response
 
+    @allure.step('Delete by API')
     def delete(self, id_: str = None, **kwargs) -> Response:
         id_ = id_ or get_id_from_response(self.create_response)
         self.delete_response = self.post(
@@ -68,6 +73,7 @@ class BaseAPI(APIClient):
 
         return self.delete_response
 
+    @allure.step('Close by API')
     def close(self, id_: str = None, payload: dict = None) -> Response:
         payload = payload or self.close_payload
         payload = self._modify_payload(payload, id_)
@@ -76,6 +82,7 @@ class BaseAPI(APIClient):
 
         return self.close_response
 
+    @allure.step('Close and new by API')
     def close_and_new(self, id_: str = None, payload: dict = None) -> Response:
         payload = payload or self.close_and_new_payload
         payload = self._modify_payload(payload, id_)

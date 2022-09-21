@@ -1,3 +1,4 @@
+import allure
 import pytest
 from selene.support.conditions import be
 from selene.support.shared import browser
@@ -43,3 +44,18 @@ def login():
         HomePage.product_button.should(be.clickable)
 
     return inner
+
+
+def pytest_exception_interact(node, call, report):
+    """Attach screenshot if test failed"""
+    if report.failed:
+        try:
+            if browser.driver.title and not browser.config.last_screenshot:
+                browser.save_screenshot()
+            with open(browser.config.last_screenshot, 'rb') as screen:
+                allure.attach(screen.read(), 'screen', allure.attachment_type.PNG)
+            browser.config.last_screenshot = ''
+            browser.driver.quit()
+
+        except Exception as ex:
+            LOGGER.error(ex)

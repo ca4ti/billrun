@@ -7,4 +7,4 @@ class ProductsPage(BasePage):
 
     @staticmethod
     def get_key_button(key: str):
-        return browser.element(f'//button[contains(text(), {key} )]')
+        return browser.element(f'//button[contains(text(), "{key}" )]')
