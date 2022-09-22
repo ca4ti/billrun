@@ -37,6 +37,7 @@ def driver():
 def login():
     """login to BillRun app"""
 
+    @allure.step('Login to BillRun app')
     def inner(username, password):
         LoginPage.login_field.send_keys(username)
         LoginPage.password_field.send_keys(password)
