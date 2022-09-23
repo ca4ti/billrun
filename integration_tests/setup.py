@@ -6,13 +6,14 @@ INSTALL_REQUIRES = [
     'pytest',
     'python-dotenv',
     'requests',
-    'selene==2.0.0b7',
+    'selene==2.0.0b8',
     'webdriver-manager',
     'faker',
     'addict',
     'pytz',
     'json_schema_matchers',
-    'pytest-testrail @ https://github.com/Serhii2205/pytest-testrail-extended/tarball/master'
+    'pytest-testrail @ https://github.com/Serhii2205/pytest-testrail-extended/tarball/master',
+    'allure-pytest'
 ]
 
 setup(

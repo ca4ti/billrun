@@ -1,3 +1,4 @@
+import pytest
 from selene.support.conditions import be
 
 from config.credentials import USERNAME, PASSWORD
@@ -10,12 +11,13 @@ from steps.ui_steps.product_steps import ProductsUISteps
 import allure
 
 
+@pytest.mark.smoke
 @allure.title('Create product by API and then check it is appeared on UI')
 @allure.description('PRODUCT-UI-1')
 def test_create_product_by_api_and_check_on_ui(driver, login):
     product_key = get_entity(Products().compose_create_payload().create()).get('key')
 
-    driver.get(f'http://{ENV}')
+    driver.get(ENV)
     login(USERNAME, PASSWORD)
 
     HomePage.product_button.click()

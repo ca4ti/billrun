@@ -34,12 +34,7 @@ class APIClient:
         self._log_in()
 
     def _url(self, path):
-        if 'localhost' in self._env:
-            scheme = 'http'
-        else:
-            scheme = 'https'
-
-        return f"{scheme}://{self._env}/{path}"
+        return f"{self._env}/{path}"
 
     @api_logger
     def get(self, path, *args, **kwargs):
