@@ -91,7 +91,7 @@ class Services(BaseAPI):
         ).update_payload
 
         self.close_and_new_payload['from'] = from_date or get_random_past_or_future_date_str(
-            range_nearest_days=5, past=False
+            range_nearest_days=5, past=False, start_range_from=20
         )
 
         return self
