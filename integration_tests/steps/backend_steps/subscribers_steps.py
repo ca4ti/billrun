@@ -54,7 +54,7 @@ class Subscribers(BaseAPI):
             "firstname": firstname or FAKE.first_name(),
             "lastname": lastname or FAKE.last_name(),
             "from": from_date or get_random_past_or_future_date_str(),
-            "to": to or get_random_past_or_future_date_str(past=False, start_range_from=20),
+            "to": to or get_random_past_or_future_date_str(past=False, start_range_from=10),
             "play": play or 'Default',
             "address": address or FAKE.street_address(),
             "country": country or FAKE.country(),
@@ -88,8 +88,10 @@ class Subscribers(BaseAPI):
         return self
 
     def compose_close_payload(self, to=False, date_in_past=False):
+        start_range_from = 20 if not date_in_past else None
         self.close_payload = {
-            'to': get_random_past_or_future_date_str(past=date_in_past) if to else None
+            'to': get_random_past_or_future_date_str(
+                past=date_in_past, start_range_from=start_range_from) if to else None
         }
 
         return self
