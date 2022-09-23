@@ -88,7 +88,7 @@ class Products(BaseAPI):
             pricing_method=None
     ):
         self.update_payload = {
-            # "invoice_label": invoice_label or get_random_str(),  #  should it be updatable ?
+            "invoice_label": invoice_label or get_random_str(),
             "tax": [
                 {
                     "type": tax_type or None,
