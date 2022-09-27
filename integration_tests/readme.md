@@ -104,6 +104,6 @@ Once the all tests are finished they will be updated in TestRail:
 
 1. Install allure to your machine
 `brew install allure` for macOS
-2. Run test with option `--alluredir allure-result`, creates a directory allure-results at the root of the project
+2. Run tests
 3. Run allure server `allure serve allure-result`
 

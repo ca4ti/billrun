@@ -1,5 +1,6 @@
 import allure
 import pytest
+
 from selene.support.conditions import be
 from selene.support.shared import browser
 from selenium.common import WebDriverException
