@@ -8,7 +8,7 @@ class Driver:
         self.kwargs = kwargs
         self.kwargs['service'] = Service(ChromeDriverManager().install())
         options = webdriver.ChromeOptions()
-        # options.add_argument("--headless")
+        options.add_argument("--headless")
         if '--headless' in options.arguments:
             options.add_argument("--window-size=1920,1080")
             options.add_argument("--no-sandbox")
