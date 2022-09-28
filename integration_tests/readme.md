@@ -29,15 +29,14 @@ Could be placed to .env file
 |---------------|--------------------------|
 | USERNAME      | Login for BillRun app    |
 | PASSWORD      | Password for BillRun app |
-| ENV           | localhost:8074           |
+| ENV           | http://localhost:8074    |
 
 # Run
 
 1. Activate venv from the repo folder, if it was deactivated
-`source venv/bin/activate`
+   `source venv/bin/activate`
 2. Run tests
-`pytest -m smoke`
-
+   `pytest -m smoke`
 
 ## Config for TestRail
 
@@ -99,11 +98,10 @@ Once the all tests are finished they will be updated in TestRail:
 | --tr-milestone-id              | Identifier of milestone to be assigned to run                                                                                                      |
 | --tc-custom-comment            | Custom comment, to be appended to default comment for test case (config file: custom_comment in TESTCASE section)                                  |
 
-
 ## Allure report
 
 1. Install allure to your machine
-`brew install allure` for macOS
+   `brew install allure` for macOS
 2. Run tests
 3. Run allure server `allure serve allure-result`
 
