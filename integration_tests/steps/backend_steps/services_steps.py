@@ -141,7 +141,7 @@ class ServicesAssertionSteps(APIAssertionSteps):
         super().__init__(instance=instance)
 
     def check_response(self, actual_response, expected_response, schema, method):
-        super().check_response(actual_response, expected_response, schema, method)
+        self.check_json_schema_and_http_code_and_status(schema, actual_response)
 
         # response GET details  has type array, so we should get 0 elem from array
         actual = (
