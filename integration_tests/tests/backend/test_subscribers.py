@@ -105,6 +105,8 @@ def test_delete_subscriber():
 
 
 @pytestrail.case('C2711')
+@allure.title('Permanentchange subscriber by API')
+@allure.description('SUBSCRIBER-API-5')
 @pytest.mark.smoke
 def test_permanentchange_subscriber():
     subscriber = Subscribers()
