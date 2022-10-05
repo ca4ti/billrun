@@ -21,7 +21,7 @@ test:
     - pytest -m smoke
 
 report:
-  stage: report
+  stage: deploy
   script:
     - allure generate $CI_PROJECT_DIR/integration_tests/allure-results
   artifacts:
