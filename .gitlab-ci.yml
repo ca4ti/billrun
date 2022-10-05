@@ -20,7 +20,7 @@ test:
   script:
     - pytest -m smoke
     - allure generate $CI_PROJECT_DIR/integration_tests/allure-results
-  #  allow_failure: true
+  allow_failure: true
   artifacts:
     when: always
     paths:
