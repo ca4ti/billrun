@@ -33,7 +33,6 @@ default:
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/integration_tests.cache/pip"
 
-
 before_script:
   - cd integration_tests
   - python3 --version  # For debugging
@@ -42,9 +41,11 @@ before_script:
   - source venv/bin/activate
   - pip3 install -e .
 
-
 test:
   script:
     - pytest -m smoke
+
+artifacts:
+  when: always
 
 
