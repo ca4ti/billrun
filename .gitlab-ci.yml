@@ -1,26 +1,51 @@
-variables:
-  DOCKER_HOST: tcp://docker:2375/
-  DOCKER_DRIVER: overlay2
+#variables:
+#  DOCKER_HOST: tcp://docker:2375/
+#  DOCKER_DRIVER: overlay2
+#
+#default:
+#  tags:
+#    - serhii_local_mac
+#
+#    # Official docker compose image.
+#image:
+#  name: docker/compose:latest
+#
+#services:
+#  - docker:dind
+#
+#before_script:
+#  - docker version
+#  - docker-compose version
+#
+#build:
+#  stage: build
+#  script:
+#    - cd docker/billrun-docker
+#    - docker-compose  -f docker-compose-php73.yml  build
+#    - docker-compose  -f docker-compose-php73.yml  up
+#
 
 default:
   tags:
     - serhii_local_mac
 
-    # Official docker compose image.
-image:
-  name: docker/compose:latest
+image: python:latest
 
-services:
-  - docker:dind
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/integration_tests.cache/pip"
+
 
 before_script:
-  - docker version
-  - docker-compose version
+  - cd integration_tests
+  - python --version  # For debugging
+  - pip install virtualenv
+  - python3 -m venv venv
+  - source venv/bin/activate
+  - pip3 install -e .
 
-build:
-  stage: build
+
+test:
   script:
-    - cd docker/billrun-docker
-    - docker-compose  -f docker-compose-php73.yml  build
-    - docker-compose  -f docker-compose-php73.yml  up
+    - pytest -m smoke
+
 
