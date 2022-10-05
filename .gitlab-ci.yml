@@ -19,8 +19,9 @@ before_script:
 test:
   script:
     - pytest -m smoke
-
-artifacts:
-  when: always
+  artifacts:
+    when: always
+    paths:
+      - allure-result/
 
 
