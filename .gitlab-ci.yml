@@ -7,24 +7,32 @@ default:
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/integration_tests.cache/pip"
 
-before_script:
-  - cd integration_tests
-  - python3 --version  # For debugging
-  - pip3 install virtualenv
-  - python3 -m venv venv
-  - source venv/bin/activate
-  - pip3 install -e .
+#before_script:
+#  - cd integration_tests
+#  - python3 --version  # For debugging
+#  - pip3 install virtualenv
+#  - python3 -m venv venv
+#  - source venv/bin/activate
+#  - pip3 install -e .
 
 test:
   stage: test
   script:
+    - cd integration_tests
+    - python3 --version  # For debugging
+    - pip3 install virtualenv
+    - python3 -m venv venv
+    - source venv/bin/activate
+    - pip3 install -e .
     - pytest -m smoke
-    - allure generate $CI_PROJECT_DIR/integration_tests/allure-results
   allow_failure: true
+
+report:
+  stage: deploy
+  script:
+    - allure generate $CI_PROJECT_DIR/integration_tests/allure-results
   artifacts:
     when: always
     paths:
       - $CI_PROJECT_DIR/integration_tests/allure-report/*
     expire_in: 1 day
-
-
