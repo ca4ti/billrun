@@ -24,12 +24,11 @@
 #    - docker-compose  -f docker-compose-php73.yml  build
 #    - docker-compose  -f docker-compose-php73.yml  up
 #
+image: python:3.10
 
 default:
   tags:
     - serhii_local_mac
-
-image: python:latest
 
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/integration_tests.cache/pip"
