@@ -24,7 +24,7 @@ test:
   artifacts:
     when: always
     paths:
-      - $CI_PROJECT_DIR/integration_tests/allure-report
+      - $CI_PROJECT_DIR/integration_tests/allure-report/*
     expire_in: 1 day
 
 
