@@ -4,7 +4,7 @@ variables:
 
 default:
   tags:
-    - CI_DEV
+    - serhii_local_mac
 
     # Official docker compose image.
 image:
