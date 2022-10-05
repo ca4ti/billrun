@@ -1,29 +1,4 @@
-#variables:
-#  DOCKER_HOST: tcp://docker:2375/
-#  DOCKER_DRIVER: overlay2
-#
-#default:
-#  tags:
-#    - serhii_local_mac
-#
-#    # Official docker compose image.
-#image:
-#  name: docker/compose:latest
-#
-#services:
-#  - docker:dind
-#
-#before_script:
-#  - docker version
-#  - docker-compose version
-#
-#build:
-#  stage: build
-#  script:
-#    - cd docker/billrun-docker
-#    - docker-compose  -f docker-compose-php73.yml  build
-#    - docker-compose  -f docker-compose-php73.yml  up
-#
+
 image: python:3.10
 
 default:
