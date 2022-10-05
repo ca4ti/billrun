@@ -26,6 +26,11 @@ test:
     - pip3 install -e .
     - pytest -m smoke
   allow_failure: true
+  artifacts:
+    when: always
+    paths:
+      - $CI_PROJECT_DIR/integration_tests/allure-results/*
+    expire_in: 1 day
 
 report:
   stage: deploy
