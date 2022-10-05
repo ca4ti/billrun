@@ -26,7 +26,7 @@
 #
 image: python:3.10
 
-job:
+default:
   tags:
     - serhii_local_mac
 
