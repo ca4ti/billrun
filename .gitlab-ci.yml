@@ -19,12 +19,8 @@ test:
   stage: test
   script:
     - pytest -m smoke
-  allow_failure: true
-
-report:
-  stage: deploy
-  script:
     - allure generate $CI_PROJECT_DIR/integration_tests/allure-results
+  #  allow_failure: true
   artifacts:
     when: always
     paths:
