@@ -16,10 +16,12 @@ before_script:
   - pip3 install -e .
 
 test:
+  stage: test
   script:
     - pytest -m smoke
 
 report:
+  stage: report
   script:
     - allure generate $CI_PROJECT_DIR/integration_tests/allure-results
   artifacts:
