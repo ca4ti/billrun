@@ -19,6 +19,7 @@ test:
   stage: test
   script:
     - pytest -m smoke
+  allow_failure: true
 
 report:
   stage: deploy
