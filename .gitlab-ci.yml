@@ -26,7 +26,7 @@
 #
 image: python:3.10
 
-default:
+job:
   tags:
     - serhii_local_mac
 
@@ -36,7 +36,7 @@ variables:
 
 before_script:
   - cd integration_tests
-  - python --version  # For debugging
+  - python3 --version  # For debugging
   - pip install virtualenv
   - python3 -m venv venv
   - source venv/bin/activate
