@@ -36,8 +36,9 @@ report:
   stage: deploy
   script:
     - allure generate --clean  --report-dir $CI_PROJECT_DIR/integration_tests/allure-report $CI_PROJECT_DIR/integration_tests/allure-results
+    - mv $CI_PROJECT_DIR/integration_tests/allure-report/ public
   artifacts:
     when: always
     paths:
-      - $CI_PROJECT_DIR/integration_tests/allure-report/*
+      - public
     expire_in: 1 day
