@@ -24,7 +24,7 @@ test:
     - python3 -m venv venv
     - source venv/bin/activate
     - pip3 install -e .
-    - pytest -m smoke
+    - pytest -k test_delete_customer
   allow_failure: true
   artifacts:
     when: always
