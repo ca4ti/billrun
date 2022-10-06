@@ -32,7 +32,7 @@ test:
       - $CI_PROJECT_DIR/integration_tests/allure-results/*
     expire_in: 1 day
 
-report:
+pages:
   stage: deploy
   script:
     - mkdir .public
