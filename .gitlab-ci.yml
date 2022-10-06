@@ -33,7 +33,7 @@ test:
     expire_in: 1 day
 
 pages:
-  stage: pages
+  stage: deploy
   script:
     - mkdir .public
     - cp -r * .public
