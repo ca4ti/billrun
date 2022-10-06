@@ -35,6 +35,9 @@ test:
 report:
   stage: deploy
   script:
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
     - allure generate --clean  --report-dir $CI_PROJECT_DIR/integration_tests/allure-report $CI_PROJECT_DIR/integration_tests/allure-results
     - mv $CI_PROJECT_DIR/integration_tests/allure-report/ public
   artifacts:
