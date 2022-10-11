@@ -25,7 +25,6 @@ test:
     - source venv/bin/activate
     - pip3 install -e .
     - pytest -m smoke
-  # allow_failure: true
   artifacts:
     when: always
     paths:
