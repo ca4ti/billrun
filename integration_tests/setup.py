@@ -6,7 +6,7 @@ INSTALL_REQUIRES = [
     'pytest',
     'python-dotenv',
     'requests',
-    'selene==2.0.0b12',
+    'selene==2.0.0b14',
     'webdriver-manager',
     'faker',
     'addict',
