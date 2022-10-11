@@ -24,21 +24,25 @@ test:
     - python3 -m venv venv
     - source venv/bin/activate
     - pip3 install -e .
-    - pytest -k test_delete_customer
-  allow_failure: true
+    - pytest -m smoke
+  # allow_failure: true
   artifacts:
     when: always
     paths:
       - $CI_PROJECT_DIR/integration_tests/allure-results/*
     expire_in: 1 day
 
-report:
+pages:
   stage: deploy
+  when: always
   script:
+    - mkdir .public
+    - mv .public public
     - allure generate --clean  --report-dir $CI_PROJECT_DIR/integration_tests/allure-report $CI_PROJECT_DIR/integration_tests/allure-results
-    - mv $CI_PROJECT_DIR/integration_tests/allure-report/ public
+    # - mv $CI_PROJECT_DIR/integration_tests/allure-report/ public
   artifacts:
     when: always
     paths:
-      - public
+      - $CI_PROJECT_DIR/integration_tests/allure-report
+      # - public
     expire_in: 1 day
