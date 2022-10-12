@@ -21,6 +21,7 @@ stages:
 test:
   stage: test
   script:
+    - echo $NEW_VAR
     - cd integration_tests
     - python3 --version  # For debugging
     - pip3 install virtualenv
