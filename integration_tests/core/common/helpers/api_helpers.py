@@ -1,4 +1,5 @@
 import time
+from json import JSONDecodeError
 from typing import Callable, Union
 
 from requests import Response
@@ -55,8 +56,14 @@ def api_repeater(func: Callable, timeout: int = 1, polling: Union[int, float] = 
     end_time = time.time() + timeout
     while True:
         result = func()
-        if result.json().get('status') == 1:
-            return result
+        try:
+            if result.json().get('status') == 1:
+                return result
+        # workaround for https://billrun.atlassian.net/browse/BRCD-3898
+        # remove after fix
+        except JSONDecodeError:
+            if 'Service was not found' in result.text:
+                continue
         if time.time() > end_time:
             return result
         time.sleep(polling)
