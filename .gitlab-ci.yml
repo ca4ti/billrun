@@ -1,3 +1,5 @@
+image: python:3.10
+
 default:
   tags:
     - CI_SAST
@@ -5,19 +7,11 @@ default:
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/integration_tests.cache/pip"
 
-#before_script:
-#  - cd integration_tests
-#  - python3 --version  # For debugging
-#  - pip3 install virtualenv
-#  - python3 -m venv venv
-#  - source venv/bin/activate
-#  - pip3 install -e .
 stages:
   - test
   - deploy
 
 test:
-  image: python:3.10
   stage: test
   script:
     - cd integration_tests
