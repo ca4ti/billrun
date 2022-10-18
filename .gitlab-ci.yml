@@ -2,7 +2,7 @@ image: python:3.10
 
 default:
   tags:
-    - CI_SAST
+    - billrun-runner-1
 
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/integration_tests.cache/pip"
