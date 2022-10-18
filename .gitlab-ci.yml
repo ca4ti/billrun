@@ -27,6 +27,7 @@ test:
     - python3 -m venv venv
     - source venv/bin/activate
     - echo "ENV:$TEST_ENV" > .ENV
+    - cat .ENV
     - pip3 install -e .
     - pytest -m smoke
   artifacts:
