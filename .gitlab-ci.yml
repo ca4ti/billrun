@@ -38,9 +38,7 @@ pages:
   stage: deploy
   when: always
   script:
-    # - mkdir .public
     - mkdir -p public
-    # - mv .public public
     - allure generate --clean  --report-dir $CI_PROJECT_DIR/integration_tests/allure-report $CI_PROJECT_DIR/integration_tests/allure-results
     - mv $CI_PROJECT_DIR/integration_tests/allure-report/ public
   artifacts:
