@@ -1,4 +1,7 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 USERNAME = os.environ.get("USERNAME", "admin")
 PASSWORD = os.environ.get("PASSWORD", "12345678")
