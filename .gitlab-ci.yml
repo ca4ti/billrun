@@ -34,6 +34,7 @@ pages:
   stage: deploy
   when: always
   script:
+    - apt-get update
     - apt-get install ---yes allure
     - mkdir -p public
     - allure generate --clean  --report-dir $CI_PROJECT_DIR/integration_tests/allure-report $CI_PROJECT_DIR/integration_tests/allure-results
