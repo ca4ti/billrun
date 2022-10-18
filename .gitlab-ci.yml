@@ -2,7 +2,7 @@ image: python:3.10
 
 default:
   tags:
-    - serhii_local_mac
+    - CI_SAST
 
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/integration_tests.cache/pip"
@@ -22,6 +22,8 @@ test:
   stage: test
   script:
     - cd integration_tests
+    - echo ENV = $TEST_ENV > .ENV
+    - cat .ENV
     - python3 --version  # For debugging
     - pip3 install virtualenv
     - python3 -m venv venv
@@ -38,13 +40,12 @@ pages:
   stage: deploy
   when: always
   script:
-    - mkdir .public
-    - mv .public public
+    - mkdir -p public
     - allure generate --clean  --report-dir $CI_PROJECT_DIR/integration_tests/allure-report $CI_PROJECT_DIR/integration_tests/allure-results
-    # - mv $CI_PROJECT_DIR/integration_tests/allure-report/ public
+    - mv $CI_PROJECT_DIR/integration_tests/allure-report/ public
   artifacts:
     when: always
     paths:
-      - $CI_PROJECT_DIR/integration_tests/allure-report
-      # - public
+      # - public/$CI_PROJECT_DIR/integration_tests/allure-report
+      - public
     expire_in: 1 day
