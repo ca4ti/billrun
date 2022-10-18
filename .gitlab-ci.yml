@@ -1,4 +1,4 @@
-image: python:3.10
+# image: python:3.10
 
 default:
   tags:
@@ -12,6 +12,7 @@ stages:
   - deploy
 
 test:
+  image: python:3.10
   stage: test
   script:
     - cd integration_tests
@@ -29,6 +30,7 @@ test:
     expire_in: 1 day
 
 pages:
+  image: ubuntu:latest
   stage: deploy
   when: always
   script:
