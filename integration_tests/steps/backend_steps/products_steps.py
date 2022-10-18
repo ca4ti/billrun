@@ -2,6 +2,7 @@ import random
 from copy import deepcopy
 from json import loads
 
+import allure
 from hamcrest import has_entries, assert_that
 
 from core.common.entities import APIPath
@@ -200,6 +201,7 @@ class ProductAssertionSteps(APIAssertionSteps):
     def __init__(self, instance: Products):
         super().__init__(instance=instance)
 
+    @allure.step('Check response is correct')
     def check_response(self, actual_response, expected_response, schema, method):
         self.check_json_schema_and_http_code_and_status(schema, actual_response)
         # response details has type array, so we should get 0 elem from array

@@ -161,3 +161,7 @@ def remove_keys_in_nested_dict(initial_dict: dict, key_to_remove: list):
         if isinstance(value, list):
             for nested in value:
                 remove_keys_in_nested_dict(nested, key_to_remove)
+
+
+def get_api_path_name(path: str) -> str:
+    return path[path.find('/') + 1:-1].capitalize()
