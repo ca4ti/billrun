@@ -22,11 +22,12 @@ test:
   stage: test
   script:
     - cd integration_tests
+    - echo ENV = $TEST_ENV > .ENV
+    - cat .ENV
     - python3 --version  # For debugging
     - pip3 install virtualenv
     - python3 -m venv venv
     - source venv/bin/activate
-    - echo ENV= $TEST_ENV > .ENV
     - pip3 install -e .
     - pytest -m smoke
   artifacts:
