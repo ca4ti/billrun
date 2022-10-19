@@ -26,7 +26,7 @@ integration_tests:
   artifacts:
     when: always
     paths:
-      # - $CI_PROJECT_DIR/integration_tests/allure-results/*
+      - $CI_PROJECT_DIR/integration_tests/allure-results/*
       - $CI_PROJECT_DIR/integration_tests/xml_report.xml
       # remove:
     reports:
