@@ -70,6 +70,7 @@ def test_close_product(to):
         expected_response=product.generate_expected_response_after_close())
 
 
+@pytest.mark.skip('https://billrun.atlassian.net/browse/BRCD-3887')
 @pytestrail.case('C2687')
 @allure.title('Close and new product by API')
 @allure.description('PRODUCT-API-4')
