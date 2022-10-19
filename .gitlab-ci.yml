@@ -8,17 +8,12 @@ variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/integration_tests.cache/pip"
 
 stages:
-  - build
   - test
 
-setup:
-  stage: build
-  script:
-    - apt-get update 
-    - apt-get install -y gconf-service libasound2 libatk1.0-0 libcairo2 libcups2 libfontconfig1 libgdk-pixbuf2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libxss1 fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-    - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
-    - apt-get update && apt-get install -y google-chrome-stable # install chrome browser for UI tests
+integration_backend_tests:
+  # image: python:3.10
+  stage: test
+  before_script:
     - cd integration_tests
     - echo ENV = $TEST_ENV > .env
     - python3 --version  # For debugging
@@ -26,18 +21,7 @@ setup:
     - python3 -m venv venv
     - source venv/bin/activate
     - pip3 install -e .
-
-integration_backend_tests:
-  # image: python:3.10
-  stage: test
   script:
-    # - cd integration_tests
-    # - echo ENV = $TEST_ENV > .env
-    # - python3 --version  # For debugging
-    # - pip3 install virtualenv
-    # - python3 -m venv venv
-    # - source venv/bin/activate
-    # - pip3 install -e .
     - pytest -m smoke --junitxml=xml_report_backend.xml
   artifacts:
     when: always
@@ -50,6 +34,19 @@ integration_backend_tests:
 
 integration_ui_tests:
   stage: test
+  before_script:
+    - apt-get update 
+    - apt-get install -y gconf-service libasound2 libatk1.0-0 libcairo2 libcups2 libfontconfig1 libgdk-pixbuf2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libxss1 fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils
+    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+    - apt-get update && apt-get install -y google-chrome-stable # install chrome browser for UI tests
+    - cd integration_tests
+    - echo ENV = $TEST_ENV > .env
+    - python3 --version  # For debugging
+    - pip3 install virtualenv
+    - python3 -m venv venv
+    - source venv/bin/activate
+    - pip3 install -e .
   script:
     - pytest -m ui --junitxml=xml_report_ui.xml
   artifacts:
