@@ -10,8 +10,6 @@ variables:
 stages:
   - build
   - test
-  - test
-  # - deploy
 
 setup:
   stage: build
