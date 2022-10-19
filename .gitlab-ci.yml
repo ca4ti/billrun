@@ -22,11 +22,11 @@ integration_tests:
     - python3 -m venv venv
     - source venv/bin/activate
     - pip3 install -e .
-    - pytest -m smoke --junitxml=xml_report.xml
+    - pytest -m ui --junitxml=xml_report.xml
   artifacts:
     when: always
     paths:
-      # - $CI_PROJECT_DIR/integration_tests/allure-results/*
+      - $CI_PROJECT_DIR/integration_tests/allure-results/*
       - $CI_PROJECT_DIR/integration_tests/xml_report.xml
       # remove:
     reports:
