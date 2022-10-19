@@ -8,12 +8,14 @@ variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/integration_tests.cache/pip"
 
 stages:
+  - build
   - test
   - test
   # - deploy
 
-.setup:
-  before_script:
+setup:
+  stage: build
+  script:
     - apt-get update 
     - apt-get install -y gconf-service libasound2 libatk1.0-0 libcairo2 libcups2 libfontconfig1 libgdk-pixbuf2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libxss1 fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -27,12 +29,9 @@ stages:
     - source venv/bin/activate
     - pip3 install -e .
 
-
-
 integration_backend_tests:
   # image: python:3.10
   stage: test
-  extends: .setup
   script:
     # - cd integration_tests
     # - echo ENV = $TEST_ENV > .env
