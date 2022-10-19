@@ -11,8 +11,8 @@ stages:
   - test
   # - deploy
 
-before_script:
-  - apt-get install chromium-driver
+# before_script:
+#   - apt-get install chromium-driver
 
 integration_tests:
   image: python:3.10
