@@ -9,7 +9,7 @@ variables:
 
 stages:
   - test
-  - deploy
+  # - deploy
 
 test:
   image: python:3.10
@@ -22,26 +22,30 @@ test:
     - python3 -m venv venv
     - source venv/bin/activate
     - pip3 install -e .
-    - pytest -m smoke
+    - pytest -m smoke --junitxml=xml_report.xml
   artifacts:
     when: always
     paths:
-      - $CI_PROJECT_DIR/integration_tests/allure-results/*
+      # - $CI_PROJECT_DIR/integration_tests/allure-results/*
+      - $CI_PROJECT_DIR/integration_tests/xml_report.xml
+      # remove:
+    reports:
+      junit: $CI_PROJECT_DIR/integration_tests/xml_report.xml
     expire_in: 1 day
 
-pages:
-  image: ubuntu:latest
-  stage: deploy
-  when: always
-  script:
-    - apt-get update
-    - apt-get install ---yes allure
-    - mkdir -p public
-    - allure generate --clean  --report-dir $CI_PROJECT_DIR/integration_tests/allure-report $CI_PROJECT_DIR/integration_tests/allure-results
-    - mv $CI_PROJECT_DIR/integration_tests/allure-report/ public
-  artifacts:
-    when: always
-    paths:
-      # - public/$CI_PROJECT_DIR/integration_tests/allure-report
-      - public
-    expire_in: 1 day
+# pages:
+#   image: ubuntu:latest
+#   stage: deploy
+#   when: always
+#   script:
+#     - apt-get update
+#     - apt-get install ---yes allure
+#     - mkdir -p public
+#     - allure generate --clean  --report-dir $CI_PROJECT_DIR/integration_tests/allure-report $CI_PROJECT_DIR/integration_tests/allure-results
+#     - mv $CI_PROJECT_DIR/integration_tests/allure-report/ public
+#   artifacts:
+#     when: always
+#     paths:
+#       # - public/$CI_PROJECT_DIR/integration_tests/allure-report
+#       - public
+#     expire_in: 1 day
