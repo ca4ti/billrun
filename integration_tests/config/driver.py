@@ -2,13 +2,16 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+from config.env import PROJECT_DIRECTORY
+
 
 class Driver:
     def __init__(self, **kwargs):
         self.kwargs = kwargs
         # specify Chrome version due to webdriver-manager was not updated with new mac m1 path
         # https://bugs.chromium.org/p/chromedriver/issues/detail?id=4215
-        self.kwargs['service'] = Service(ChromeDriverManager(version='106.0.5249.21').install())
+        self.kwargs['service'] = Service(
+            ChromeDriverManager(version='106.0.5249.21', path=PROJECT_DIRECTORY).install())
         print(f"{self.kwargs['service'].path=}")
         options = webdriver.ChromeOptions()
         options.add_argument("--headless")
