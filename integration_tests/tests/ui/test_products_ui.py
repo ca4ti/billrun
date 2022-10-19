@@ -11,7 +11,7 @@ from steps.ui_steps.product_steps import ProductsUISteps
 import allure
 
 
-@pytest.mark.smoke
+@pytest.mark.ui
 @allure.title('Create product by API and then check it is appeared on UI')
 @allure.description('PRODUCT-UI-1')
 def test_create_product_by_api_and_check_on_ui(driver, login):
