@@ -9,6 +9,7 @@ class Driver:
         # specify Chrome version due to webdriver-manager was not updated with new mac m1 path
         # https://bugs.chromium.org/p/chromedriver/issues/detail?id=4215
         self.kwargs['service'] = Service(ChromeDriverManager(version='106.0.5249.21').install())
+        print(f"{self.kwargs['service'].path=}")
         options = webdriver.ChromeOptions()
         options.add_argument("--headless")
         if '--headless' in options.arguments:
