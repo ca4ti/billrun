@@ -1,4 +1,4 @@
-# image: python:3.10
+image: python:3.10
 
 default:
   tags:
@@ -9,6 +9,7 @@ variables:
 
 stages:
   - test
+  - test
   # - deploy
 
 before_script:
@@ -16,30 +17,49 @@ before_script:
   - apt-get install -y gconf-service libasound2 libatk1.0-0 libcairo2 libcups2 libfontconfig1 libgdk-pixbuf2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libxss1 fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils
   - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
   - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
-  - apt-get update && apt-get install -y google-chrome-stable
-  # - apt-get install -y google-chrome-stable
+  - apt-get update && apt-get install -y google-chrome-stable # install chrome browser for UI tests
+  - cd integration_tests
+  - echo ENV = $TEST_ENV > .env
+  - python3 --version  # For debugging
+  - pip3 install virtualenv
+  - python3 -m venv venv
+  - source venv/bin/activate
+  - pip3 install -e .
 
 
-integration_tests:
-  image: python:3.10
+
+integration_backend_tests:
+  # image: python:3.10
   stage: test
   script:
-    - cd integration_tests
-    - echo ENV = $TEST_ENV > .env
-    - python3 --version  # For debugging
-    - pip3 install virtualenv
-    - python3 -m venv venv
-    - source venv/bin/activate
-    - pip3 install -e .
-    - pytest -m ui --junitxml=xml_report.xml
+    # - cd integration_tests
+    # - echo ENV = $TEST_ENV > .env
+    # - python3 --version  # For debugging
+    # - pip3 install virtualenv
+    # - python3 -m venv venv
+    # - source venv/bin/activate
+    # - pip3 install -e .
+    - pytest -m smoke --junitxml=xml_report_backend.xml
   artifacts:
     when: always
     paths:
       - $CI_PROJECT_DIR/integration_tests/allure-results/*
-      - $CI_PROJECT_DIR/integration_tests/xml_report.xml
-      # remove:
+      - $CI_PROJECT_DIR/integration_tests/xml_report_backend.xml
     reports:
-      junit: $CI_PROJECT_DIR/integration_tests/xml_report.xml
+      junit: $CI_PROJECT_DIR/integration_tests/xml_report_backend.xml
+    expire_in: 1 day
+
+integration_ui_tests:
+  stage: test
+  script:
+    - pytest -m ui --junitxml=xml_report_ui.xml
+  artifacts:
+    when: always
+    paths:
+      - $CI_PROJECT_DIR/integration_tests/allure-results/*
+      - $CI_PROJECT_DIR/integration_tests/xml_report_ui.xml
+    reports:
+      junit: $CI_PROJECT_DIR/integration_tests/xml_report_ui.xml
     expire_in: 1 day
 
 # pages:
