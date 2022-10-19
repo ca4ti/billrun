@@ -11,7 +11,6 @@ class APIClient:
     def __init__(self, username=None, password=None):
         self._username = username
         self._password = password
-        print(f"{ENV=}")  # for debugging
         self._env = ENV
 
         if not self._session.cookies:

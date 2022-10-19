@@ -12,7 +12,6 @@ class Driver:
         # https://bugs.chromium.org/p/chromedriver/issues/detail?id=4215
         self.kwargs['service'] = Service(
             ChromeDriverManager(version='106.0.5249.21', path=PROJECT_DIRECTORY).install())
-        print(f"{self.kwargs['service'].path=}")
         options = webdriver.ChromeOptions()
         options.add_argument("--headless")
         if '--headless' in options.arguments:
