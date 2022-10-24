@@ -170,10 +170,10 @@ class Subscribers(BaseAPI):
         payload['query'] = self._compose_permanent_change_query(payload['update']['from'])
         payload['options'] = self._compose_permanent_change_options()
 
-        # occasionally we get error "Service was not found", so we use 1 sec waiter
+        # occasionally we get error "Service was not found", so we use timeout
         self.permanent_change_response = api_repeater(lambda: self.post(
             f'{self.path}/permanentchange', data=dumps_values(payload)
-        ))
+        ), timeout=2)
 
         return self.permanent_change_response
 
