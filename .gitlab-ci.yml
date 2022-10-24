@@ -36,7 +36,6 @@ integration_ui_tests:
   stage: test
   before_script:
     - apt-get update 
-    # - apt-get install -y gconf-service libasound2 libatk1.0-0 libcairo2 libcups2 libfontconfig1 libgdk-pixbuf2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libxss1 fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
     - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
     - apt-get update && apt-get install -y google-chrome-stable # install chrome browser for UI tests
@@ -57,20 +56,3 @@ integration_ui_tests:
     reports:
       junit: $CI_PROJECT_DIR/integration_tests/xml_report_ui.xml
     expire_in: 1 day
-
-# pages:
-#   image: ubuntu:latest
-#   stage: deploy
-#   when: always
-#   script:
-#     - apt-get update
-#     - apt-get install ---yes allure
-#     - mkdir -p public
-#     - allure generate --clean  --report-dir $CI_PROJECT_DIR/integration_tests/allure-report $CI_PROJECT_DIR/integration_tests/allure-results
-#     - mv $CI_PROJECT_DIR/integration_tests/allure-report/ public
-#   artifacts:
-#     when: always
-#     paths:
-#       # - public/$CI_PROJECT_DIR/integration_tests/allure-report
-#       - public
-#     expire_in: 1 day
