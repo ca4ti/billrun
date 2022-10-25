@@ -13,9 +13,7 @@ docker_build:
   stage: build
   image: docker:latest
   script:
-    - pwd
-    - ls -l
-    - cd /docker/billrun-docker
+    - cd docker/billrun-docker
     - docker-compose -f docker-compose-php74.yml build
     - docker-compose -f docker-compose-php74.yml up
 
