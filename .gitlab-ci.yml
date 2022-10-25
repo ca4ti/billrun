@@ -1,23 +1,35 @@
 default:
   tags:
-    - serhii_local_mac
+    - serhii_local_docker
 
 stages:
   - build
   - test
 
-build_stage:
+docker_build:
   stage: build
+  image: docker:latest
+
+  services:
+   - name: docker:dind
+     alias: docker
+
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+
   script:
     - cd docker/billrun-docker
     - docker-compose -f docker-compose-php74.yml build
     - docker-compose -f docker-compose-php74.yml up -d
 
 integration_backend_tests:
+  image: python:3.10
   stage: test
   before_script:
     - cd integration_tests
-    # - echo ENV = http://docker:8074 > .env
+    - echo ENV = http://docker:8074 > .env
     - python3 --version  # For debugging
     - pip3 install virtualenv
     - python3 -m venv venv
@@ -38,7 +50,7 @@ integration_backend_tests:
 #   image: python:3.10
 #   stage: test
 #   before_script:
-#     - apt-get update 
+#     - apt-get update
 #     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 #     - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
 #     - apt-get update && apt-get install -y google-chrome-stable # install chrome browser for UI tests
