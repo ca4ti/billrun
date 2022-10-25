@@ -1,7 +1,10 @@
-
 default:
   tags:
     - serhii_local_docker
+
+stages:
+  - build
+  - test
 
 services:
   - docker:dind
@@ -15,11 +18,9 @@ docker_build:
     - docker-compose -f docker-compose-php74.yml up
 
 
-variables:
-  PIP_CACHE_DIR: "$CI_PROJECT_DIR/integration_tests.cache/pip"
+# variables:
+#   PIP_CACHE_DIR: "$CI_PROJECT_DIR/integration_tests.cache/pip"
 
-stages:
-  - test
 
 integration_backend_tests:
   image: python:3.10
