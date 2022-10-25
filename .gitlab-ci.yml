@@ -6,12 +6,22 @@ stages:
   - build
   - test
 
-services:
-  - docker:dind
+# services:
+#   - docker:dind
 
 docker_build:
   stage: build
   image: docker:latest
+
+  services:
+   - name: docker:dind
+     alias: thedockerhost
+
+  variables:
+    DOCKER_HOST: tcp://thedockerhost:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+
   script:
     - cd docker/billrun-docker
     - docker-compose -f docker-compose-php74.yml build
