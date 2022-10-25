@@ -34,6 +34,9 @@ docker_build:
 
 integration_backend_tests:
   image: python:3.10
+    services:
+   - name: docker:dind
+     alias: docker
   stage: test
   before_script:
     - cd docker/billrun-docker
