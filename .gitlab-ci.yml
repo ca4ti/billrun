@@ -1,21 +1,35 @@
-image: python:3.10
-
 default:
   tags:
-    - CI_SAST
-
-variables:
-  PIP_CACHE_DIR: "$CI_PROJECT_DIR/integration_tests.cache/pip"
+    - serhii_local_docker
 
 stages:
+  - build
   - test
 
+docker_build:
+  stage: build
+  image: docker:latest
+
+  services:
+   - name: docker:dind
+     alias: docker
+
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+
+  script:
+    - cd docker/billrun-docker
+    - docker-compose -f docker-compose-php74.yml build
+    - docker-compose -f docker-compose-php74.yml up -d
+
 integration_backend_tests:
-  # image: python:3.10
+  image: python:3.10
   stage: test
   before_script:
     - cd integration_tests
-    - echo ENV = $TEST_ENV > .env
+    - echo ENV = http://docker:8074 > .env
     - python3 --version  # For debugging
     - pip3 install virtualenv
     - python3 -m venv venv
@@ -32,27 +46,28 @@ integration_backend_tests:
       junit: $CI_PROJECT_DIR/integration_tests/xml_report_backend.xml
     expire_in: 1 day
 
-integration_ui_tests:
-  stage: test
-  before_script:
-    - apt-get update 
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-    - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
-    - apt-get update && apt-get install -y google-chrome-stable # install chrome browser for UI tests
-    - cd integration_tests
-    - echo ENV = $TEST_ENV > .env
-    - python3 --version  # For debugging
-    - pip3 install virtualenv
-    - python3 -m venv venv
-    - source venv/bin/activate
-    - pip3 install -e .
-  script:
-    - pytest -m ui --junitxml=xml_report_ui.xml
-  artifacts:
-    when: always
-    paths:
-      - $CI_PROJECT_DIR/integration_tests/allure-results/*
-      - $CI_PROJECT_DIR/integration_tests/xml_report_ui.xml
-    reports:
-      junit: $CI_PROJECT_DIR/integration_tests/xml_report_ui.xml
-    expire_in: 1 day
+# integration_ui_tests:
+#   image: python:3.10
+#   stage: test
+#   before_script:
+#     - apt-get update
+#     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+#     - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+#     - apt-get update && apt-get install -y google-chrome-stable # install chrome browser for UI tests
+#     - cd integration_tests
+#     - echo ENV = $TEST_ENV > .env
+#     - python3 --version  # For debugging
+#     - pip3 install virtualenv
+#     - python3 -m venv venv
+#     - source venv/bin/activate
+#     - pip3 install -e .
+#   script:
+#     - pytest -m ui --junitxml=xml_report_ui.xml
+#   artifacts:
+#     when: always
+#     paths:
+#       - $CI_PROJECT_DIR/integration_tests/allure-results/*
+#       - $CI_PROJECT_DIR/integration_tests/xml_report_ui.xml
+#     reports:
+#       junit: $CI_PROJECT_DIR/integration_tests/xml_report_ui.xml
+#     expire_in: 1 day
