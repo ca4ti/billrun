@@ -1,8 +1,19 @@
-image: python:3.10
 
 default:
   tags:
-    - CI_SAST
+    - serhii_local_docker
+
+services:
+  - docker:dind
+
+docker_build:
+  stage: build
+  image: docker:latest
+  script:
+    - cd /docker/billrun-docker
+    - docker-compose -f docker-compose-php74.yml build
+    - docker-compose -f docker-compose-php74.yml up
+
 
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/integration_tests.cache/pip"
@@ -11,7 +22,7 @@ stages:
   - test
 
 integration_backend_tests:
-  # image: python:3.10
+  image: python:3.10
   stage: test
   before_script:
     - cd integration_tests
@@ -33,6 +44,7 @@ integration_backend_tests:
     expire_in: 1 day
 
 integration_ui_tests:
+  image: python:3.10
   stage: test
   before_script:
     - apt-get update 
