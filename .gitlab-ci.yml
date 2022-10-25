@@ -6,6 +6,8 @@ stages:
   - build
   - test
 
+build_stage:
+  stage: build
   script:
     - cd docker/billrun-docker
     - docker-compose -f docker-compose-php74.yml build
