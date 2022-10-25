@@ -15,7 +15,7 @@ docker_build:
 
   services:
    - name: docker:dind
-     alias: thedockerhost
+     alias: docker
 
   variables:
     DOCKER_HOST: tcp://docker:2375/
