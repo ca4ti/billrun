@@ -37,7 +37,7 @@ integration_backend_tests:
   stage: test
   before_script:
     - cd integration_tests
-    - echo ENV = $TEST_ENV > .env
+    # - echo ENV = $TEST_ENV > .env
     - python3 --version  # For debugging
     - pip3 install virtualenv
     - python3 -m venv venv
