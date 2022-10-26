@@ -2,13 +2,13 @@ default:
   tags:
     - serhii_local_docker
 
+stages:
+- build
+- test
+
 variables:
   CONTAINER_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   CONTAINER_LATEST: $CI_REGISTRY_IMAGE:latest
-
-stages:
-- build
-- deploy
 
 build:
   stage: build
