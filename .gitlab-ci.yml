@@ -2,6 +2,8 @@ default:
   tags:
     - serhii_local_docker
 
+image: tiangolo/docker-with-compose:latest
+
 stages:
 - build
 - test
