@@ -2,27 +2,24 @@ default:
   tags:
     - serhii_local_docker
 
+variables:
+  CONTAINER_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  CONTAINER_LATEST: $CI_REGISTRY_IMAGE:latest
+
 stages:
-  - build
-  - test
+- build
+- deploy
 
-docker_build:
+build:
   stage: build
-  image: docker:latest
-
-  services:
-   - name: docker:dind
-     alias: docker
-
-  variables:
-    DOCKER_HOST: tcp://docker:2375/
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
-
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
   script:
-    - cd docker/billrun-docker
-    - docker-compose -f docker-compose-php74.yml build
-    - docker-compose -f docker-compose-php74.yml up -d
+    - cd docker/billrun-docker/billrun-php74
+    - docker pull $CONTAINER_LATEST
+    - docker build --cache-from $CONTAINER_LATEST --tag $CONTAINER_IMAGE --tag $CONTAINER_LATEST .
+    - docker push $CONTAINER_IMAGE
+    - docker push $CONTAINER_LATEST
 
 integration_backend_tests:
   image: python:3.10
