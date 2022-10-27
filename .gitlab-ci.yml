@@ -13,14 +13,14 @@ stages:
 #   CONTAINER_LATEST: $CI_REGISTRY_IMAGE:latest
 
 integration_backend_tests:
-  # services:
-  #  - name: docker:dind
-  #    alias: docker
+  services:
+   - name: docker:dind
+     alias: docker
 
-  # variables:
-  #   DOCKER_HOST: tcp://docker:2375/
-  #   DOCKER_DRIVER: overlay2
-  #   DOCKER_TLS_CERTDIR: ""
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
 
   stage: test
   before_script:
@@ -33,7 +33,7 @@ integration_backend_tests:
     - cd $CI_PROJECT_DIR/integration_tests/
     - pwd
     - ls
-    # - echo ENV = http://docker:8074 > .env
+    - echo ENV = http://docker:8074 > .env
     - python3 --version  # For debugging
     - pip3 install --ignore-installed distlib virtualenv
     - python3 -m venv venv
