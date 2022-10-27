@@ -5,28 +5,34 @@ default:
 image: tiangolo/docker-with-compose:latest
 
 stages:
-- build
+# - build
 - test
 
-variables:
-  CONTAINER_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-  CONTAINER_LATEST: $CI_REGISTRY_IMAGE:latest
+# variables:
+#   CONTAINER_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+#   CONTAINER_LATEST: $CI_REGISTRY_IMAGE:latest
 
-build:
-  stage: build
-  before_script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-  script:
-    - cd docker/billrun-docker/billrun-php74
-    - docker pull $CONTAINER_LATEST
-    - docker build --cache-from $CONTAINER_LATEST --tag $CONTAINER_IMAGE --tag $CONTAINER_LATEST .
-    - docker push $CONTAINER_IMAGE
-    - docker push $CONTAINER_LATEST
+# build:
+#   stage: build
+#   before_script:
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#   script:
+#     - cd docker/billrun-docker/billrun-php74
+#     - docker pull $CONTAINER_LATEST
+#     - docker build --cache-from $CONTAINER_LATEST --tag $CONTAINER_IMAGE --tag $CONTAINER_LATEST .
+#     - docker push $CONTAINER_IMAGE
+#     - docker push $CONTAINER_LATEST
 
 integration_backend_tests:
   image: python:3.10
   stage: test
   before_script:
+    - docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
+    - cd docker/billrun-docker
+    - docker-compose -f docker-compose-php74.yml build
+    - docker-compose -f docker-compose-php74.yml up -d
+    - cd 
+    - pwd
     - cd integration_tests
     - echo ENV = http://docker:8074 > .env
     - python3 --version  # For debugging
