@@ -29,9 +29,8 @@ integration_backend_tests:
     - cd docker/billrun-docker
     - docker-compose -f docker-compose-php74.yml build
     - docker-compose -f docker-compose-php74.yml up -d
-    - cd 
     - pwd
-    - cd integration_tests
+    - cd ../..
     # - echo ENV = http://docker:8074 > .env
     - python3 --version  # For debugging
     - pip3 install virtualenv
