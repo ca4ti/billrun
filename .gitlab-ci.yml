@@ -33,7 +33,7 @@ integration_backend_tests:
     - cd ../..
     # - echo ENV = http://docker:8074 > .env
     - python3 --version  # For debugging
-    - pip3 install virtualenv
+    - pip3 install --ignore-installed distlib virtualenv
     - python3 -m venv venv
     - source venv/bin/activate
     - pip3 install -e .
