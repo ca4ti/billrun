@@ -12,15 +12,15 @@ stages:
 #   CONTAINER_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
 #   CONTAINER_LATEST: $CI_REGISTRY_IMAGE:latest
 
-integration_backend_tests:
-  services:
-   - name: docker:dind
-     alias: docker
+# integration_backend_tests:
+#   services:
+#    - name: docker:dind
+#      alias: docker
 
-  variables:
-    DOCKER_HOST: tcp://docker:2375/
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
+#   variables:
+#     DOCKER_HOST: tcp://docker:2375/
+#     DOCKER_DRIVER: overlay2
+#     DOCKER_TLS_CERTDIR: ""
 
   stage: test
   before_script:
