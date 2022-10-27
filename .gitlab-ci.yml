@@ -3,15 +3,11 @@ default:
     # - serhii_local_docker
     - CI_SAST
 
-image: tiangolo/docker-with-compose:latest
+# image: tiangolo/docker-with-compose:latest
+image: serhii22ua/docker-compose-python10
 
 stages:
-# - build
 - test
-
-# variables:
-#   CONTAINER_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-#   CONTAINER_LATEST: $CI_REGISTRY_IMAGE:latest
 
 integration_backend_tests:
   services:
@@ -25,13 +21,12 @@ integration_backend_tests:
 
   stage: test
   before_script:
-    # - docker run -v /var/run/docker.sock:/var/run/docker.sock docker
-    # - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - cd docker/billrun-docker
     - docker-compose -f docker-compose-php74.yml build
     - docker-compose -f docker-compose-php74.yml up -d
     - cd $CI_PROJECT_DIR/integration_tests/
     - echo ENV = http://docker:8074 > .env
+    # create test virtual env
     - python3 --version  # For debugging
     - pip3 install --ignore-installed distlib virtualenv
     - python3 -m venv venv
