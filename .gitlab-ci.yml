@@ -1,6 +1,7 @@
 default:
   tags:
-    - serhii_local_docker
+    # - serhii_local_docker
+    - CI_SAST
 
 image: tiangolo/docker-with-compose:latest
 
@@ -29,10 +30,7 @@ integration_backend_tests:
     - cd docker/billrun-docker
     - docker-compose -f docker-compose-php74.yml build
     - docker-compose -f docker-compose-php74.yml up -d
-    - pwd
     - cd $CI_PROJECT_DIR/integration_tests/
-    - pwd
-    - ls
     - echo ENV = http://docker:8074 > .env
     - python3 --version  # For debugging
     - pip3 install --ignore-installed distlib virtualenv
