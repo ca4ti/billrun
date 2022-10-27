@@ -1,10 +1,8 @@
 default:
   tags:
-    # - serhii_local_docker
     - CI_SAST
 
-# image: tiangolo/docker-with-compose:latest
-image: serhii22ua/docker-compose-python10
+image: tiangolo/docker-with-compose:latest
 
 stages:
 - test
@@ -42,29 +40,3 @@ integration_backend_tests:
     reports:
       junit: $CI_PROJECT_DIR/integration_tests/xml_report_backend.xml
     expire_in: 1 day
-
-# integration_ui_tests:
-#   image: python:3.10
-#   stage: test
-#   before_script:
-#     - apt-get update
-#     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-#     - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
-#     - apt-get update && apt-get install -y google-chrome-stable # install chrome browser for UI tests
-#     - cd integration_tests
-#     - echo ENV = $TEST_ENV > .env
-#     - python3 --version  # For debugging
-#     - pip3 install virtualenv
-#     - python3 -m venv venv
-#     - source venv/bin/activate
-#     - pip3 install -e .
-#   script:
-#     - pytest -m ui --junitxml=xml_report_ui.xml
-#   artifacts:
-#     when: always
-#     paths:
-#       - $CI_PROJECT_DIR/integration_tests/allure-results/*
-#       - $CI_PROJECT_DIR/integration_tests/xml_report_ui.xml
-#     reports:
-#       junit: $CI_PROJECT_DIR/integration_tests/xml_report_ui.xml
-#     expire_in: 1 day
