@@ -30,7 +30,7 @@ integration_backend_tests:
     - docker-compose -f docker-compose-php74.yml build
     - docker-compose -f docker-compose-php74.yml up -d
     - pwd
-    - cd ../..
+    - cd $CI_PROJECT_DIR/integration_tests/
     - pwd
     - ls
     # - echo ENV = http://docker:8074 > .env
