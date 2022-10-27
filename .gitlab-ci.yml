@@ -27,7 +27,7 @@ integration_backend_tests:
   image: docker:latest
   stage: test
   before_script:
-    - docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
+    - docker run -v /var/run/docker.sock:/var/run/docker.sock docker
     - cd docker/billrun-docker
     - docker-compose -f docker-compose-php74.yml build
     - docker-compose -f docker-compose-php74.yml up -d
