@@ -28,6 +28,7 @@ integration_backend_tests:
   stage: test
   before_script:
     # - docker run -v /var/run/docker.sock:/var/run/docker.sock docker
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - cd docker/billrun-docker
     - docker-compose -f docker-compose-php74.yml build
     - docker-compose -f docker-compose-php74.yml up -d
