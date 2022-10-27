@@ -31,6 +31,8 @@ integration_backend_tests:
     - docker-compose -f docker-compose-php74.yml up -d
     - pwd
     - cd ../..
+    - pwd
+    - ls
     # - echo ENV = http://docker:8074 > .env
     - python3 --version  # For debugging
     - pip3 install --ignore-installed distlib virtualenv
