@@ -24,17 +24,17 @@ stages:
 #     - docker push $CONTAINER_LATEST
 
 integration_backend_tests:
-  image: docker:latest
+  image: tiangolo/docker-with-compose:latest
   stage: test
   before_script:
-    - docker run -v /var/run/docker.sock:/var/run/docker.sock docker
+    # - docker run -v /var/run/docker.sock:/var/run/docker.sock docker
     - cd docker/billrun-docker
     - docker-compose -f docker-compose-php74.yml build
     - docker-compose -f docker-compose-php74.yml up -d
     - cd 
     - pwd
     - cd integration_tests
-    - echo ENV = http://docker:8074 > .env
+    # - echo ENV = http://docker:8074 > .env
     - python3 --version  # For debugging
     - pip3 install virtualenv
     - python3 -m venv venv
