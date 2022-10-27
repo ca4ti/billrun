@@ -2,7 +2,7 @@ default:
   tags:
     - serhii_local_docker
 
-image: tiangolo/docker-with-compose:latest
+# image: tiangolo/docker-with-compose:latest
 
 stages:
 # - build
@@ -24,7 +24,7 @@ stages:
 #     - docker push $CONTAINER_LATEST
 
 integration_backend_tests:
-  image: python:3.10
+  image: docker:latest
   stage: test
   before_script:
     - docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
