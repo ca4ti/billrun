@@ -44,3 +44,6 @@ integration_backend_tests:
     expire_in: 1 day
   only:
     - merge_requests
+  cache:
+    paths:
+      - venv/
