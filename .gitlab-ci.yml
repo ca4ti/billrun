@@ -13,7 +13,7 @@ integration_backend_tests:
      alias: docker
 
   variables:
-    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_HOST: tcp://dockerhost:2375/
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
 
@@ -24,7 +24,8 @@ integration_backend_tests:
     - docker-compose -f docker-compose-php74.yml build
     - docker-compose -f docker-compose-php74.yml up -d
     - cd $CI_PROJECT_DIR/integration_tests/
-    - echo ENV = http://docker:8074 > .env
+    - echo dockerhost
+    - echo ENV = http://dockerhost:8074 > .env
     # create test virtual env
     - python3 --version  # For debugging
     - pip3 install --ignore-installed distlib virtualenv
@@ -41,5 +42,5 @@ integration_backend_tests:
     reports:
       junit: $CI_PROJECT_DIR/integration_tests/xml_report_backend.xml
     expire_in: 1 day
-  only:
-    - merge_requests
+  # only:
+  #   - merge_requests
