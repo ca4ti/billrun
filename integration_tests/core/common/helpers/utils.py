@@ -57,16 +57,14 @@ def get_random_past_or_future_date_str(
 def get_random_date_between_dates(
         start_date: str = None,
         end_date: str = None,
-        pattern: str = DATE_PATTERN
+        pattern: str = DATE_PATTERN,
+        include_dates: bool = False
 ) -> date:
-    start_date = (
-        datetime.strptime(start_date, pattern)
-        if start_date else datetime.now()
-    )
-    end_date = (
-        datetime.strptime(end_date, pattern)
-        if end_date else datetime.now() + timedelta(days=365)
-    )
+    start_date = (datetime.strptime(start_date, pattern) if start_date
+                  else datetime.now()) + timedelta(days=int(not include_dates))
+    end_date = (datetime.strptime(end_date, pattern) if end_date
+                else datetime.now() + timedelta(days=365)) + timedelta(days=int(include_dates))
+
     return datetime.fromtimestamp(get_random_int(
         start=int(start_date.timestamp()), stop=int(end_date.timestamp()))
     )
