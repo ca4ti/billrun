@@ -41,7 +41,7 @@ class Services(BaseAPI):
             'price': price or create_price_obj(price=get_random_int(start=10, stop=10000)),
             'tax': tax,
             'from_date': from_date or get_random_past_or_future_date_str(),
-            'to': to or get_random_past_or_future_date_str(past=False),
+            'to': to or get_random_past_or_future_date_str(past=False, start_range_from=5),
             'prorated': prorated or get_true_or_false(),
             'quantitative': quantitative or get_true_or_false(),
         }
