@@ -19,7 +19,7 @@ integration_backend_tests:
 
   stage: test
   before_script:
-     - echo dockerhost
+    - echo dockerhost
     # build and up BillRun app
     - cd docker/billrun-docker
     - docker-compose -f docker-compose-php74.yml build
