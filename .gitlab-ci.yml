@@ -21,10 +21,9 @@ integration_backend_tests:
   stage: test
   before_script:
     # build and up BillRun app
-    - python3 --version  # For debugging
     - cd docker/billrun-docker
-    - docker-compose -f docker-compose-php74.yml build
-    - docker-compose -f docker-compose-php74.yml up -d
+    - docker compose -f docker-compose-php74.yml build
+    - docker compose -f docker-compose-php74.yml up -d
     - cd $CI_PROJECT_DIR/integration_tests/
     - echo ENV = http://dockerhost:8074 > .env
     # create test virtual env
