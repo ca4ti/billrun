@@ -22,7 +22,6 @@ integration_backend_tests:
   before_script:
     # build and up BillRun app
     - cd docker/billrun-docker
-    # - docker compose -f docker-compose-php74.yml build
     - docker compose -f docker-compose-php74.yml up -d
     - cd $CI_PROJECT_DIR/integration_tests/
     - echo ENV = $TEST_ENV > .env
