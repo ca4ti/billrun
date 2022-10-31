@@ -24,7 +24,7 @@ integration_backend_tests:
     - docker compose -f docker-compose-php74.yml build
     - docker compose -f docker-compose-php74.yml up -d
     - cd $CI_PROJECT_DIR/integration_tests/
-    - echo ENV = http://dockerhost:8074 > .env
+    - echo ENV = $TEST_ENV > .env
     # create test virtual env
     - python3 --version  # For debugging
     # - pip3 install --ignore-installed distlib virtualenv
