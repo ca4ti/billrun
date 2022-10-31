@@ -2,7 +2,6 @@ default:
   tags:
     - CI_SAST
 
-# image: tiangolo/docker-with-compose:latest
 image: serhii22ua/docker-compose-python10:latest-amd64
 
 stages:
@@ -21,7 +20,6 @@ integration_backend_tests:
   stage: test
   before_script:
     # build and up BillRun app
-    - docekr compose version
     - cd docker/billrun-docker
     - docker compose -f docker-compose-php74.yml build
     - docker compose -f docker-compose-php74.yml up -d
@@ -33,8 +31,10 @@ integration_backend_tests:
     - python3 -m venv venv
     - source venv/bin/activate
     - pip3 install -e .
+
   script:
     - pytest -m smoke --junitxml=xml_report_backend.xml
+    
   artifacts:
     when: always
     paths:
