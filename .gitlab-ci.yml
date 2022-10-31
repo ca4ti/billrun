@@ -2,7 +2,8 @@ default:
   tags:
     - CI_SAST
 
-image: tiangolo/docker-with-compose:latest
+# image: tiangolo/docker-with-compose:latest
+image: serhii22ua/docker-compose-python10
 
 stages:
 - test
@@ -41,5 +42,5 @@ integration_backend_tests:
     reports:
       junit: $CI_PROJECT_DIR/integration_tests/xml_report_backend.xml
     expire_in: 1 day
-  only:
-    - merge_requests
+  # only:
+  #   - merge_requests
