@@ -44,5 +44,5 @@ integration_backend_tests:
     reports:
       junit: $CI_PROJECT_DIR/integration_tests/xml_report_backend.xml
     expire_in: 1 day
-  # only:
-  #   - merge_requests
+  only:
+    - merge_requests
