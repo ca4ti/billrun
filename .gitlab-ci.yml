@@ -18,6 +18,7 @@ integration_backend_tests:
     DOCKER_TLS_CERTDIR: ""
 
   stage: test
+
   before_script:
     # build and up BillRun app
     - cd docker/billrun-docker
@@ -27,7 +28,6 @@ integration_backend_tests:
     - echo ENV = $TEST_ENV > .env
     # create test virtual env
     - python3 --version  # For debugging
-    # - pip3 install --ignore-installed distlib virtualenv
     - pip3 install virtualenv
     - python3 -m venv venv
     - source venv/bin/activate
@@ -44,5 +44,6 @@ integration_backend_tests:
     reports:
       junit: $CI_PROJECT_DIR/integration_tests/xml_report_backend.xml
     expire_in: 1 day
-  # only:
-  #   - merge_requests
+    
+  only:
+    - merge_requests
