@@ -2,7 +2,7 @@ default:
   tags:
     - CI_SAST
 
-image: tiangolo/docker-with-compose:latest
+image: serhii22ua/docker-compose-python10:latest-amd64
 
 stages:
 - test
@@ -21,18 +21,21 @@ integration_backend_tests:
   before_script:
     # build and up BillRun app
     - cd docker/billrun-docker
-    - docker-compose -f docker-compose-php74.yml build
-    - docker-compose -f docker-compose-php74.yml up -d
+    - docker compose -f docker-compose-php74.yml build
+    - docker compose -f docker-compose-php74.yml up -d
     - cd $CI_PROJECT_DIR/integration_tests/
-    - echo ENV = http://dockerhost:8074 > .env
+    - echo ENV = $TEST_ENV > .env
     # create test virtual env
     - python3 --version  # For debugging
-    - pip3 install --ignore-installed distlib virtualenv
+    # - pip3 install --ignore-installed distlib virtualenv
+    - pip3 install virtualenv
     - python3 -m venv venv
     - source venv/bin/activate
     - pip3 install -e .
+
   script:
     - pytest -m smoke --junitxml=xml_report_backend.xml
+    
   artifacts:
     when: always
     paths:
@@ -41,5 +44,5 @@ integration_backend_tests:
     reports:
       junit: $CI_PROJECT_DIR/integration_tests/xml_report_backend.xml
     expire_in: 1 day
-  only:
-    - merge_requests
+  # only:
+  #   - merge_requests
