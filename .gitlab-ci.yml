@@ -3,7 +3,7 @@ default:
     - CI_SAST
 
 # image: tiangolo/docker-with-compose:latest
-image: serhii22ua/docker-compose-python10:1
+image: serhii22ua/docker-compose-python10:latest-amd64
 
 stages:
 - test
