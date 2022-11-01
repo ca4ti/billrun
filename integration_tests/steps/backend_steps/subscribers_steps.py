@@ -186,7 +186,12 @@ class Subscribers(BaseAPI):
         return self.plan
 
     def create_service(self):
-        self.service = get_entity(Services().compose_create_payload().create())
+        # When updating a subscriber's service quantity make sure
+        # to also update the “from” of the service with the revision start date
+        self.service = get_entity(Services().compose_create_payload(
+            prorated=True,
+            from_date=self.permanent_change_payload['from']
+        ).create())
         return self.service
 
     def generate_expected_response_after_updating(self, payload=None):
