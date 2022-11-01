@@ -17,6 +17,10 @@ integration_backend_tests:
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
 
+    DOCKER_BUILDKIT: 1
+    BUILDKIT_INLINE_CACHE: 1
+    COMPOSE_DOCKER_CLI_BUILD: 1
+
   stage: test
 
   before_script:
@@ -45,5 +49,5 @@ integration_backend_tests:
       junit: $CI_PROJECT_DIR/integration_tests/xml_report_backend.xml
     expire_in: 1 day
     
-  only:
-    - merge_requests
+  # only:
+  #   - merge_requests
