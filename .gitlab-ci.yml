@@ -27,7 +27,7 @@ integration_backend_tests:
     # create test virtual env
     - cd $CI_PROJECT_DIR/integration_tests/
     - echo ENV = $TEST_ENV > .env
-    - python3 --version  # For debugging
+    - python3 --version  # for debugging
     - pip3 install virtualenv
     - python3 -m venv venv
     - source venv/bin/activate
