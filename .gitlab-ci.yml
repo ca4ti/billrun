@@ -1,6 +1,6 @@
 default:
   tags:
-    - CI_SAST
+    - CI_SAST  # docker runner
 
 image: serhii22ua/docker-compose-python10:latest-amd64
 
@@ -20,12 +20,13 @@ integration_backend_tests:
   stage: test
 
   before_script:
-    # build and up BillRun app
+    # up BillRun app in docker
     - cd docker/billrun-docker
     - docker compose -f docker-compose-php74.yml up -d
+
+    # create test virtual env
     - cd $CI_PROJECT_DIR/integration_tests/
     - echo ENV = $TEST_ENV > .env
-    # create test virtual env
     - python3 --version  # For debugging
     - pip3 install virtualenv
     - python3 -m venv venv
