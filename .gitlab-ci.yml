@@ -17,10 +17,6 @@ integration_backend_tests:
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
 
-    DOCKER_BUILDKIT: 1
-    BUILDKIT_INLINE_CACHE: 1
-    COMPOSE_DOCKER_CLI_BUILD: 1
-
   stage: test
 
   before_script:
