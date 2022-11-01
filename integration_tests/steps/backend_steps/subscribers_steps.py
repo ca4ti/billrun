@@ -190,7 +190,7 @@ class Subscribers(BaseAPI):
         # to also update the “from” of the service with the revision start date
         self.service = get_entity(Services().compose_create_payload(
             prorated=True,
-            from_date=self.permanent_change_payload['from']
+            from_date=self.create_payload['from']
         ).create())
         return self.service
 
